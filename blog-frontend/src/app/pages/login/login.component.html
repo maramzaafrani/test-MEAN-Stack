@@ -1,0 +1,28 @@
+<!-- Barre de navigation -->
+<nav class="navbar">
+  <ul>
+    <li><a routerLink="/login" class="active">Connexion</a></li>
+    <li><a routerLink="/register">Inscription</a></li>
+    <li><a routerLink="/admin/roles">Gestion des rôles</a></li>
+   
+  </ul>
+</nav>
+
+<!-- Section de connexion -->
+<div class="login-container">
+  <h2>🔐 Connexion</h2>
+
+  <form (submit)="login()" class="login-form">
+    <label>
+      Email :
+      <input type="email" [(ngModel)]="email" name="email" placeholder="Entrez votre email" required />
+    </label>
+
+    <label>
+      Mot de passe :
+      <input type="password" [(ngModel)]="motdepasse" name="motdepasse" placeholder="Votre mot de passe" required />
+    </label>
+
+    <button type="submit">Se connecter</button>
+  </form>
+</div>

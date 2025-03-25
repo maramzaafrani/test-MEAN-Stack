@@ -1,0 +1,8 @@
+<h2>Créer un article</h2>
+<form (ngSubmit)="create()">
+  <input type="text" [(ngModel)]="titre" name="titre" placeholder="Titre" required>
+  <textarea [(ngModel)]="contenu" name="contenu" placeholder="Contenu" required></textarea>
+  <input type="text" [(ngModel)]="imageUrl" name="imageUrl" placeholder="URL de l'image">
+  <input type="text" [(ngModel)]="tags" name="tags" placeholder="tags, séparés, virgule">
+  <button type="submit">Enregistrer</button>
+</form>

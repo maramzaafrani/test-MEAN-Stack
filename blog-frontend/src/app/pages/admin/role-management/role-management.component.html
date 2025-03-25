@@ -1,0 +1,36 @@
+<!-- Barre de navigation -->
+<nav class="navbar">
+  <ul>
+    <li><a routerLink="/login" class="active">Connexion</a></li>
+    <li><a routerLink="/register">Inscription</a></li>
+    <li><a routerLink="/admin/roles">Gestion des rôles</a></li>
+   
+  </ul>
+</nav>
+
+<!-- Conteneur principal -->
+<div class="role-container">
+  <h2>🛠️ Gestion des rôles</h2>
+
+  <form (ngSubmit)="updateRole()" class="role-form">
+    <label>
+      ID Utilisateur :
+      <input type="text" [(ngModel)]="userId" name="userId" placeholder="Entrez l'ID utilisateur" required />
+    </label>
+
+    <label>
+      Rôle :
+      <select [(ngModel)]="role" name="role" required>
+        <option value="" disabled selected>Choisissez un rôle</option>
+        <option value="Admin">Admin</option>
+        <option value="Éditeur">Éditeur</option>
+        <option value="Rédacteur">Rédacteur</option>
+        <option value="Lecteur">Lecteur</option>
+      </select>
+    </label>
+
+    <button type="submit">Mettre à jour</button>
+  </form>
+
+  <p *ngIf="message" class="message">{{ message }}</p>
+</div>

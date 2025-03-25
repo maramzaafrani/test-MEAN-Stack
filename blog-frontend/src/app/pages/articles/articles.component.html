@@ -1,0 +1,101 @@
+<!-- ===== HEADER avec bouton déconnexion ===== -->
+<header class="header">
+  <button class="logout-btn" (click)="logout()">🔓 Déconnexion</button>
+</header>
+
+<!-- ===== TITRE PRINCIPAL ===== -->
+<main class="container">
+  <h2>📰 Gestion des articles</h2>
+
+  <!-- ===== SECTION : Liste des articles ===== -->
+  <section *ngIf="articles.length > 0; else noArticles">
+    <h3>Articles existants</h3>
+
+    <div *ngFor="let art of articles" class="article-card">
+      <h4>{{ art.titre }}</h4>
+      <p>{{ art.contenu }}</p>
+
+      <div class="actions">
+        <button (click)="selectArticle(art)">📝 Modifier</button>
+        <button (click)="toggleCommentSection(art._id)">💬 Commenter</button>
+        <button (click)="deleteArticle(art._id)">🗑 Supprimer</button>
+      </div>
+
+      <!-- Zone de commentaires -->
+      <div *ngIf="commentingArticleId === art._id" class="comment-section">
+        <h5>Commentaires</h5>
+
+        <!-- Formulaire commentaire principal -->
+        <form (ngSubmit)="envoyerCommentaire(null, art._id)">
+          <input
+            type="text"
+            [(ngModel)]="reponses['root-' + art._id]"
+            [name]="'comment_root_' + art._id"
+            placeholder="💬 Ton commentaire principal"
+          />
+          <button type="submit">Envoyer</button>
+        </form>
+
+        <!-- Affichage récursif des commentaires -->
+        <div *ngFor="let comment of commentaires">
+          <ng-container *ngIf="comment.article === art._id">
+            <ng-container *ngTemplateOutlet="commentTemplate; context: { $implicit: comment }"></ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Message si aucun article -->
+  <ng-template #noArticles>
+    <p class="info">Aucun article trouvé.</p>
+  </ng-template>
+
+  <!-- ===== SECTION : Créer un nouvel article ===== -->
+  <section class="create-article">
+    <h3>✍️ Créer un nouvel article</h3>
+    <form (ngSubmit)="createArticle()">
+      <input type="text" [(ngModel)]="newArticle.titre" name="titre" required placeholder="Titre" />
+      <textarea [(ngModel)]="newArticle.contenu" name="contenu" required placeholder="Contenu"></textarea>
+      <button type="submit">Créer</button>
+    </form>
+  </section>
+
+  <!-- ===== SECTION : Modifier un article ===== -->
+  <section *ngIf="selectedArticle" class="edit-article">
+    <h3>🔧 Modifier l'article</h3>
+    <form (ngSubmit)="updateArticle()">
+      <input type="text" [(ngModel)]="selectedArticle.titre" name="titre" required />
+      <textarea [(ngModel)]="selectedArticle.contenu" name="contenu" required></textarea>
+      <button type="submit">Mettre à jour</button>
+    </form>
+  </section>
+
+  <!-- Message de retour -->
+  <p *ngIf="message" class="message">{{ message }}</p>
+</main>
+
+<!-- ===== Template récursif pour commentaires ===== -->
+<ng-template #commentTemplate let-comment>
+  <div class="comment">
+    <strong>{{ comment.auteur?.nom }}</strong>: {{ comment.contenu }}
+    <small>🕓 {{ comment.date | date:'short' }}</small>
+
+    <form (ngSubmit)="envoyerCommentaire(comment._id, commentingArticleId)">
+      <input
+        type="text"
+        [(ngModel)]="reponses[comment._id!]"
+        [name]="'reply_' + comment._id"
+        placeholder="↪ Répondre..."
+      />
+      <button type="submit">Répondre</button>
+    </form>
+
+    <!-- Réponses imbriquées -->
+    <div *ngIf="comment.children?.length">
+      <ng-container *ngFor="let child of comment.children">
+        <ng-container *ngTemplateOutlet="commentTemplate; context: { $implicit: child }"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

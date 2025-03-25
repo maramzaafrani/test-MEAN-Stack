@@ -1,0 +1,63 @@
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #f9f9ff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", sans-serif;
+  }
+  
+  .register-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .register-form label {
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .register-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .register-form button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .link-login {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .link-login a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .link-login a:hover {
+    text-decoration: underline;
+  }
+  

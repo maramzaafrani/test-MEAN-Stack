@@ -1,0 +1,35 @@
+<nav class="navbar">
+  <ul>
+    <li><a routerLink="/login" class="active">Connexion</a></li>
+   
+    <li><a routerLink="/admin/roles">Gestion des rôles</a></li>
+   
+  </ul>
+</nav>
+
+<div class="register-container">
+  <h2>📝 Inscription</h2>
+
+  <form (ngSubmit)="register()" class="register-form">
+    <label>
+      Nom :
+      <input type="text" [(ngModel)]="nom" name="nom" placeholder="Entrez votre nom" required />
+    </label>
+
+    <label>
+      Email :
+      <input type="email" [(ngModel)]="email" name="email" placeholder="Entrez votre email" required />
+    </label>
+
+    <label>
+      Mot de passe :
+      <input type="password" [(ngModel)]="motdepasse" name="motdepasse" placeholder="Choisissez un mot de passe" required />
+    </label>
+
+    <button type="submit">✅ S'inscrire</button>
+  </form>
+
+  <div class="link-login">
+    <p>Vous avez déjà un compte ? <a routerLink="/login">Connectez-vous</a></p>
+  </div>
+</div>
